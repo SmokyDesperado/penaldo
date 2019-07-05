@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 237793069}
   - component: {fileID: 237793068}
   - component: {fileID: 237793067}
+  - component: {fileID: 237793072}
   m_Layer: 0
   m_Name: Football
   m_TagString: Untagged
@@ -346,6 +347,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &237793072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237793066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7828311ffc7b7d47ba295e5d5dec35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 34
+  canShoot: 1
+  scorePlayer: 0
+  scoreOpponent: 0
+  turn: 0
+  isGameOver: 0
+  shotsTaken: 0
+  isKickedPlayer: 0
+  isKickedOpponent: 0
 --- !u!1 &304872387
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +629,7 @@ Transform:
   m_GameObject: {fileID: 1660458161}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: -0.001381682, y: 2.930585, z: 3.488965}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
