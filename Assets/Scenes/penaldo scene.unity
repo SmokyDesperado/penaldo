@@ -359,6 +359,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26d2a9d48cbf5d4d853742ec4768846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartPosX: 0
+  StartPosY: -0.3777281
+  StartPosZ: -3.635868
+  RespawnTimeInSeconds: 5
+  shootForce: 10
+  shootForceX: 5
+  shootForceY: 10
 --- !u!1 &304872387
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +540,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1161732380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100018, guid: c015692bfb9689e419bf3b94aa2a5589,
+    type: 3}
+  m_PrefabInstance: {fileID: 53384491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1161732383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161732380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5db100853515247847fbb62da49452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PosX: 0
+  PosY: 0
+  PosZ: 0
 --- !u!1 &1660458161
 GameObject:
   m_ObjectHideFlags: 0
