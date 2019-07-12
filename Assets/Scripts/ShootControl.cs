@@ -18,6 +18,10 @@ public float StartPosY = -0.3777281f;
 public float StartPosZ = -3.635868f;
 
 public float RespawnTimeInSeconds = 1f;
+public float shootForce = 10f;
+
+public float shootForceX = 10f;
+public float shootForceY = 10f;
 
 void start()
 {
@@ -44,15 +48,18 @@ void OnMouseDown()
   // Debug.Log("aiming posX: " + aiming.getPosX() + " | aiming posY: " + aiming.getPosY() + " | aiming posZ: " + aiming.getPosZ());
   // Debug.Log("posX: " + this.posX + " | posY: " + this.posY);
 
-  float posX = aiming.getPosX();
-  float posY = aiming.getPosY();
-  float posZ = aiming.getPosZ();
+  float posX = (StartPosX - aiming.getPosX()) * shootForceX;
+  float posY = (StartPosY - aiming.getPosY()) * shootForceY;
+  float posZ = aiming.getPosZ() - StartPosZ;
+
+  Debug.Log("posX: " + posX + " | posY: " + posY + " | posZ: " + posZ);
 
   Animation += Time.fixedDeltaTime;
   Animation = Animation % 5f;
   // transform.position = MathParabola.Parabola(Vector3.zero, Vector3.forward *10f, 5f, Animation / 5f);
 
-  transform.position = new Vector3(posX, posY, 2.5f);
+  // transform.position = new Vector3(posX, posY, 2.5f);
+  GetComponent<Rigidbody>().AddForce(posX, posY, shootForce, ForceMode.Impulse);
 
   Invoke("ResetStartingPosition", RespawnTimeInSeconds);
 }
