@@ -5,10 +5,6 @@ using System.Collections.Generic;
 public class ShootControl : MonoBehaviour
 {
 
-protected float Animation;
-protected GameObject GoalLine;
-protected AimingControl AimCtrl;
-
 protected float posX = 0.0f;
 protected float posY = 0.0f;
 protected float posZ = 0.0f;
@@ -38,6 +34,21 @@ private void ResetStartingPosition()
   GetComponent<Rigidbody>().angularVelocity = new Vector3 (0,0,0);
   
   transform.position = new Vector3(StartPosX, StartPosY, StartPosZ);
+  ResetStartingPositionKeeper();
+}
+
+private void ResetStartingPositionKeeper()
+{
+  GameObject goalie = GameObject.Find("Goalie");
+  KeeperControl keeperCtrl = goalie.GetComponent<KeeperControl>();
+  keeperCtrl.ResetStartingPosition();
+}
+
+private void StartKeeperMovement()
+{
+  GameObject goalie = GameObject.Find("Goalie");
+  KeeperControl keeperCtrl = goalie.GetComponent<KeeperControl>();
+  keeperCtrl.MoveKeeper();
 }
 
 void FixedUpdate()
@@ -56,9 +67,7 @@ void OnMouseDown()
 
   // Debug.Log("posX: " + posX + " | posY: " + posY + " | posZ: " + posZ);
 
-  Animation += Time.fixedDeltaTime;
-  Animation = Animation % 5f;
-
+  StartKeeperMovement();
   GetComponent<Rigidbody>().AddForce(posX, posY, shootForce, ForceMode.Impulse);
 
   Invoke("ResetStartingPosition", RespawnTimeInSeconds);
