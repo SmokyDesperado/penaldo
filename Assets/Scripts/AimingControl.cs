@@ -5,13 +5,15 @@ using UnityEngine;
 public class AimingControl : MonoBehaviour
 {
 
-public float PosX = 0.0f;
-public float PosY = 0.0f;
+public float PosX = -0.05f;
+public float PosY = 1.3f;
 public float PosZ = 0.0f;
 
-void start()
+void Start()
 {
-
+  PosX = -0.05f;
+  PosY = 1.3f;
+  PosZ = 0f;
 }
 
 void OnMouseDown()

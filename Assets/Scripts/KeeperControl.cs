@@ -24,7 +24,7 @@ void Start()
 
 public void ResetStartingPosition()
 {
-  Debug.Log("Keeper ResetStartingPosition");
+  // Debug.Log("Keeper ResetStartingPosition");
 
   GetComponent<Rigidbody>().velocity = new Vector3 (0, 0, 0);
   GetComponent<Rigidbody>().angularVelocity = new Vector3 (0, 0, 0);
@@ -36,7 +36,7 @@ public void ResetStartingPosition()
 
 private void StopMovements()
 {
-  Debug.Log("StopMovements");
+  // Debug.Log("StopMovements");
   GetComponent<Rigidbody>().velocity = new Vector3 (0, 0, 0);
   GetComponent<Rigidbody>().angularVelocity = new Vector3 (0, 0, 0);
 
@@ -47,7 +47,7 @@ private void StopMovements()
 // Update is called once per frame
 void FixedUpdate()
 {
-  Debug.Log("position.x: " + GetComponent<Rigidbody>().position.x + " | movingDirection: " + movingDirection);
+  // Debug.Log("position.x: " + GetComponent<Rigidbody>().position.x + " | movingDirection: " + movingDirection);
 
   if((GetComponent<Rigidbody>().position.x > movingDirectionMax && movingDirection > 0) || (GetComponent<Rigidbody>().position.x < movingDirectionMin && movingDirection < 0)) {
     StopMovements();
