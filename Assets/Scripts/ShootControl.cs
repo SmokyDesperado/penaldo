@@ -84,6 +84,14 @@ private void ResetStartingPosition()
 
   transform.position = new Vector3(StartPosX, StartPosY, StartPosZ);
   ResetStartingPositionKeeper();
+  ResetGoalDetection();
+}
+
+private void ResetGoalDetection()
+{
+  GameObject goalDetection = GameObject.Find("GoalDetection");
+  GoalDetection detection = goalDetection.GetComponent<GoalDetection>();
+  detection.Restart();
 }
 
 private void ResetStartingPositionKeeper()
