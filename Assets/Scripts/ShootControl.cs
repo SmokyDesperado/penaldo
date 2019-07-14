@@ -33,7 +33,8 @@ private KeywordRecognizer keywordRecognizer;
 void Start()
 {
   ResetStartingPosition();
-  keywordActions.Add("shoot", VoiceControlShoot);
+  // keywordActions.Add("shoot", VoiceControlShoot);
+  keywordActions.Add("shoot", ShootThere);
 
   keywordRecognizer = new KeywordRecognizer(keywordActions.Keys.ToArray());
   keywordRecognizer.OnPhraseRecognized += OnKeywordsRecognized;
@@ -43,6 +44,23 @@ void Start()
 void FixedUpdate()
 {
 
+}
+
+private void ShootThere()
+{
+  Debug.Log("shoot there: " );
+  Vector3 p = Input.mousePosition;
+  p.z = -3.635868f;
+  Vector3 Pos = Camera.main.ScreenToWorldPoint(p);
+  Debug.Log("PosX: " + Pos.x + " | PosY: " + Pos.y + " | PosZ: " + Pos.z);
+
+  float posX = (StartPosX - Pos.x) * shootForceX;
+  float posY = StartPosY + ((goalLineYModifier - Pos.y) * shootForceY);
+
+  StartKeeperMovement();
+  GetComponent<Rigidbody>().AddForce(posX, posY, shootForce, ForceMode.Impulse);
+
+  Invoke("ResetStartingPosition", RespawnTimeInSeconds);
 }
 
 private void OnKeywordsRecognized(PhraseRecognizedEventArgs args)
