@@ -31,8 +31,17 @@ private void OnTriggerEnter(Collider col)
   if(col.gameObject.name == "Football" && collision == false)
   {
     goals++;
-    Debug.Log("GOAL!!! " + goals);
     collision = true;
   }
+}
+
+public double GetGoals()
+{
+  return goals;
+}
+
+public bool GetCollision()
+{
+  return collision;
 }
 }

@@ -20,6 +20,7 @@ public float StartPosY = -0.3777281f;
 public float StartPosZ = -3.635868f;
 
 public float RespawnTimeInSeconds = 1f;
+public float ShowShootResultTimeInSeconds = 1f;
 public float shootForce = 10f;
 
 public float shootForceX = 5f;
@@ -33,9 +34,12 @@ private KeywordRecognizer keywordRecognizer;
 void Start()
 {
   ResetStartingPosition();
+
+  RespawnTimeInSeconds = 2f;
+  ShowShootResultTimeInSeconds = 3f;
+
   // keywordActions.Add("shoot", VoiceControlShoot);
   keywordActions.Add("shoot", ShootThere);
-
   keywordRecognizer = new KeywordRecognizer(keywordActions.Keys.ToArray());
   keywordRecognizer.OnPhraseRecognized += OnKeywordsRecognized;
   keywordRecognizer.Start();
@@ -60,7 +64,7 @@ private void ShootThere()
   StartKeeperMovement();
   GetComponent<Rigidbody>().AddForce(posX, posY, shootForce, ForceMode.Impulse);
 
-  Invoke("ResetStartingPosition", RespawnTimeInSeconds);
+  Invoke("SHowShootREsult", ShowShootResultTimeInSeconds);
 }
 
 private void OnKeywordsRecognized(PhraseRecognizedEventArgs args)
@@ -85,6 +89,7 @@ private void ResetStartingPosition()
   transform.position = new Vector3(StartPosX, StartPosY, StartPosZ);
   ResetStartingPositionKeeper();
   ResetGoalDetection();
+  ResetResultImagesPosistion();
 }
 
 private void ResetGoalDetection()
@@ -92,6 +97,33 @@ private void ResetGoalDetection()
   GameObject goalDetection = GameObject.Find("GoalDetection");
   GoalDetection detection = goalDetection.GetComponent<GoalDetection>();
   detection.Restart();
+}
+
+private void SHowShootREsult()
+{
+  GameObject goalDetection = GameObject.Find("GoalDetection");
+  GoalDetection detection = goalDetection.GetComponent<GoalDetection>();
+  if(detection.GetCollision()) {
+    Debug.Log("GOAL!!! " + detection.GetGoals());
+    GameObject goalImage = GameObject.Find("ShootResult_Goal");
+    goalImage.GetComponent<RectTransform>().position = new Vector3(0f, 1.1f, -5.5f);
+  }
+  else {
+    Debug.Log("No goal LOOSER!!!");
+    GameObject missedImage = GameObject.Find("ShootResult_Missed");
+    missedImage.GetComponent<RectTransform>().position = new Vector3(0f, 1.1f, -5.5f);
+  }
+
+  Invoke("ResetStartingPosition", RespawnTimeInSeconds);
+}
+
+private void ResetResultImagesPosistion()
+{
+  GameObject goalImage = GameObject.Find("ShootResult_Goal");
+  goalImage.GetComponent<RectTransform>().position = new Vector3(0, -2, 0);
+
+  GameObject missedImage = GameObject.Find("ShootResult_Missed");
+  missedImage.GetComponent<RectTransform>().position = new Vector3(0, -2, 0);
 }
 
 private void ResetStartingPositionKeeper()
@@ -129,7 +161,7 @@ private void ShootBall()
   StartKeeperMovement();
   GetComponent<Rigidbody>().AddForce(posX, posY, shootForce, ForceMode.Impulse);
 
-  Invoke("ResetStartingPosition", RespawnTimeInSeconds);
+  Invoke("SHowShootREsult", ShowShootResultTimeInSeconds);
 }
 
 }
