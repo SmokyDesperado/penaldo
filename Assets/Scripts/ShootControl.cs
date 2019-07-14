@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using UnityEngine.Windows.Speech;
 
-
+using UnityEngine.UI;
 
 public class ShootControl : MonoBehaviour
 {
@@ -28,6 +28,8 @@ public float shootForceY = 10f;
 
 private float goalLineYModifier = 1.7f;
 
+public Text points;
+
 private Dictionary<string, Action> keywordActions = new Dictionary<string, Action>();
 private KeywordRecognizer keywordRecognizer;
 
@@ -42,6 +44,7 @@ void Start()
   keywordActions.Add("shoot", ShootThere);
   keywordRecognizer = new KeywordRecognizer(keywordActions.Keys.ToArray());
   keywordRecognizer.OnPhraseRecognized += OnKeywordsRecognized;
+  SetPoints();
   keywordRecognizer.Start();
 }
 
@@ -107,6 +110,7 @@ private void SHowShootREsult()
     Debug.Log("GOAL!!! " + detection.GetGoals());
     GameObject goalImage = GameObject.Find("ShootResult_Goal");
     goalImage.GetComponent<RectTransform>().position = new Vector3(0f, 1.1f, -5.5f);
+    SetPoints();
   }
   else {
     Debug.Log("No goal LOOSER!!!");
@@ -115,6 +119,14 @@ private void SHowShootREsult()
   }
 
   Invoke("ResetStartingPosition", RespawnTimeInSeconds);
+}
+
+private void SetPoints()
+{
+  GameObject goalDetection = GameObject.Find("GoalDetection");
+  GoalDetection detection = goalDetection.GetComponent<GoalDetection>();
+  double goals = detection.GetGoals();
+  points.text = "Goals: " + goals.ToString();
 }
 
 private void ResetResultImagesPosistion()
