@@ -35,6 +35,11 @@ private KeywordRecognizer keywordRecognizer;
 
 void Start()
 {
+  
+}
+
+public void StartGame()
+{
   ResetStartingPosition();
 
   RespawnTimeInSeconds = 2f;
@@ -67,7 +72,7 @@ private void ShootThere()
   StartKeeperMovement();
   GetComponent<Rigidbody>().AddForce(posX, posY, shootForce, ForceMode.Impulse);
 
-  Invoke("SHowShootREsult", ShowShootResultTimeInSeconds);
+  Invoke("SHowShootResult", ShowShootResultTimeInSeconds);
 }
 
 private void OnKeywordsRecognized(PhraseRecognizedEventArgs args)
@@ -102,7 +107,7 @@ private void ResetGoalDetection()
   detection.Restart();
 }
 
-private void SHowShootREsult()
+private void SHowShootResult()
 {
   GameObject goalDetection = GameObject.Find("GoalDetection");
   GoalDetection detection = goalDetection.GetComponent<GoalDetection>();
@@ -173,7 +178,6 @@ private void ShootBall()
   StartKeeperMovement();
   GetComponent<Rigidbody>().AddForce(posX, posY, shootForce, ForceMode.Impulse);
 
-  Invoke("SHowShootREsult", ShowShootResultTimeInSeconds);
+  Invoke("SHowShootResult", ShowShootResultTimeInSeconds);
 }
-
 }
