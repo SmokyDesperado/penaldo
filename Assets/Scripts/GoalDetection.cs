@@ -7,11 +7,13 @@ public class GoalDetection : MonoBehaviour
 
 private bool collision = false;
 private double goals = 0;
+private double highscore = 0;
 
 // Start is called before the first frame update
 void Start()
 {
   goals = 0;
+  highscore = 0;
 }
 
 // Update is called once per frame
@@ -35,6 +37,18 @@ private void OnTriggerEnter(Collider col)
   }
 }
 
+public void SetGoals(double goals)
+{
+  this.goals = goals;
+}
+
+public void CalculateHighscore()
+{
+  if(goals >= highscore) {
+    highscore = goals;
+  }
+}
+
 public double GetGoals()
 {
   return goals;
@@ -43,5 +57,10 @@ public double GetGoals()
 public bool GetCollision()
 {
   return collision;
+}
+
+public double GetHighscore()
+{
+  return highscore;
 }
 }

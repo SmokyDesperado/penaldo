@@ -29,6 +29,7 @@ public float shootForceY = 10f;
 private float goalLineYModifier = 1.7f;
 
 public Text points;
+public Text highscore;
 
 private Dictionary<string, Action> keywordActions = new Dictionary<string, Action>();
 private KeywordRecognizer keywordRecognizer;
@@ -45,7 +46,7 @@ public void StartGame()
   RespawnTimeInSeconds = 2f;
   ShowShootResultTimeInSeconds = 3f;
 
-  // keywordActions.Add("shoot", VoiceControlShoot);
+  keywordActions.Add("kick", VoiceControlShoot);
   keywordActions.Add("shoot", ShootThere);
   keywordRecognizer = new KeywordRecognizer(keywordActions.Keys.ToArray());
   keywordRecognizer.OnPhraseRecognized += OnKeywordsRecognized;
@@ -115,12 +116,16 @@ private void SHowShootResult()
     Debug.Log("GOAL!!! " + detection.GetGoals());
     GameObject goalImage = GameObject.Find("ShootResult_Goal");
     goalImage.GetComponent<RectTransform>().position = new Vector3(0f, 1.1f, -5.5f);
+    detection.CalculateHighscore();
     SetPoints();
   }
   else {
     Debug.Log("No goal LOOSER!!!");
     GameObject missedImage = GameObject.Find("ShootResult_Missed");
     missedImage.GetComponent<RectTransform>().position = new Vector3(0f, 1.1f, -5.5f);
+    detection.SetGoals(0);
+    detection.CalculateHighscore();
+    SetPoints();
   }
 
   Invoke("ResetStartingPosition", RespawnTimeInSeconds);
@@ -131,7 +136,9 @@ private void SetPoints()
   GameObject goalDetection = GameObject.Find("GoalDetection");
   GoalDetection detection = goalDetection.GetComponent<GoalDetection>();
   double goals = detection.GetGoals();
+  double highscores = detection.GetHighscore();
   points.text = "Goals: " + goals.ToString();
+  highscore.text = "Highscore: " + highscores.ToString();
 }
 
 private void ResetResultImagesPosistion()
